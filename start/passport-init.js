@@ -6,12 +6,12 @@ module.exports = function(passport) {
 
     // Passport needs to be able to serialize and deserialize users to support persistent login sessions
     passport.serializeUser(function(user, done) {
-       console.log('serializing user:',user.username);
-       return done(null, user.username);
+        console.log('serializing user:', user.username);
+        return done(null, user.username);
     });
 
     passport.deserializeUser(function(username, done) {
-        return done('we have not implemented this', false);
+        return done(null, users[username]);
     });
 
     passport.use('login', new LocalStrategy({
@@ -19,7 +19,18 @@ module.exports = function(passport) {
         },
         function(req, username, password, done) {
 
-            return done('we have not implemented this', false);
+            // check if user exists
+            if (!users[username]) {
+                console.log('User not found with username ' + username);
+                return done(null, false);
+            }
+
+            // check if password is correct
+            if (isValidPassword(users[username], password)) {
+                return done(null, users[username]);
+            } else {
+                return done(null, false);
+            }
         }
     ));
 

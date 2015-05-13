@@ -30,7 +30,6 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
     };
 
     $scope.register = function() {
-        alert('test');
         $http.post('/auth/signup', $scope.user).success(function(data) {
             if (data.state == 'success') {
                 $rootScope.authenticated = true;

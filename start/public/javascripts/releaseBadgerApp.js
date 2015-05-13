@@ -1,15 +1,16 @@
 
-var app = angular.module('releaseBadgerApp', ['ngRoute'].run(function($rootScope) {
+var app = angular.module('releaseBadgerApp', ['ngRoute', 'ngResource']).run(function($http, $rootScope) {
     $rootScope.authenticated = false;
     $rootScope.current_user = '';
+    $rootScope.release_number = '2.1.2';
 
-    $rootScope.logout = function() {
+    $rootScope.signout = function() {
         $http.get('auth/signout');
         $rootScope.authenticated = false;
         $rootScope.current_user = '';
     };
 
-}));
+});
 
 // handler for auth responses
 app.controller('authController', function($scope, $http, $rootScope, $location) {
@@ -19,7 +20,7 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
     $scope.login = function(){
         $http.post('/auth/login', $scope.user).success(function(data) {
             if (data.state == 'success') {
-                $rootScope.authenticate = true;
+                $rootScope.authenticated = true;
                 $rootScope.current_user = data.user.username;
                 $location.path('/');
             } else {
@@ -29,9 +30,10 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
     };
 
     $scope.register = function() {
+        alert('test');
         $http.post('/auth/signup', $scope.user).success(function(data) {
             if (data.state == 'success') {
-                $rootScope.authenticate = true;
+                $rootScope.authenticated = true;
                 $rootScope.current_user = data.user.username;
                 $location.path('/');
             } else {
@@ -57,18 +59,33 @@ app.config(function($routeProvider)
         })
 
         .when('/register', {
-            templateUrl: 'login.html',
+            templateUrl: 'register.html',
             controller: 'authController'
         });
 });
 
+app.factory('stepService', function($resource) {
+    alert('test');
+    return $resource('/api/steps/:id');
+});
+
+
 // setup controllers
-app.controller('mainController', function($scope){
-    $scope.steps = [];
-    $scope.newStep = {
-        number: '',
-        process: '',
-        done: '',
-        time_completed: ''
+app.controller('mainController', function($scope, stepService){
+    alert('test');
+    $scope.steps = stepService.query();
+    $scope.newStep = { number: '', process: '', done: '', time_completed: '' };
+
+    // initialise steps collection
+    //stepService.getAll().success(function(data) {
+    //    $scope.steps = data;
+    //});
+
+    // add a new step
+    $scope.addStep = function() {
+        $scope.newStep.created_at = Date.now();
+        $scope.push($scope.newStep);
+        $scope.newStep = { number: '', process: '', done: '', time_completed: '' };
     };
+
 });

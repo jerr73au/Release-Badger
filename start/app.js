@@ -8,8 +8,9 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 
 // register our routes
+var index = require('./routes/index');
 var api = require('./routes/api');
-var authenticate = require('./routes/authenticate');
+var authenticate = require('./routes/authenticate')(passport);
 
 var app = express();
 
@@ -32,12 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// initialise passport
-var initPassport = require('./passport-init');
-initPassport(passport);
-
 // register our route handlers
+app.use('/', index);
 app.use('/auth', authenticate);
 app.use('/api', api);
 
@@ -49,6 +46,10 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+
+// initialise passport
+var initPassport = require('./passport-init');
+initPassport(passport);
 
 // development error handler
 // will print stacktrace

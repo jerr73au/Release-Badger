@@ -41,6 +41,7 @@ module.exports = function(passport) {
 
             if(users[username]){
                 console.log('User already exists with username ' + username);
+                return done(null, false);
             }
 
             // save user

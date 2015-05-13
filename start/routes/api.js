@@ -1,6 +1,26 @@
 var express = require('express');
 var router = express.Router();
 
+// used for routes that must be authenticated
+function isAuthenticated (req, res, next) {
+
+    //allow all get request methods
+    if(req.method == "GET") {
+        return next();
+    }
+
+    //allow any requests where the user is authenticated
+    if(req.isAuthenticated()) {
+        return next();
+    }
+
+    //for anything else, redirect to login page
+    return res.redirect('/#login');
+};
+
+// register the authentication middleware
+router.use('/steps', isAuthenticated);
+
 // api for all steps
 router.route('/steps')
 

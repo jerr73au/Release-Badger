@@ -9,7 +9,7 @@ var passport = require('passport');
 
 // register our routes
 var api = require('./routes/api');
-//var authenticate = require('./routes/authenticate');
+var authenticate = require('./routes/authenticate');
 
 var app = express();
 
@@ -29,16 +29,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // add passport middleware
-app.user(passport.initialize());
-app.user(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // initialise passport
 var initPassport = require('./passport-init');
-initPassword(passport);
+initPassport(passport);
 
 // register our route handlers
-//app.use('/auth', authenticate);
+app.use('/auth', authenticate);
 app.use('/api', api);
 
 // catch 404 and forward to error handler

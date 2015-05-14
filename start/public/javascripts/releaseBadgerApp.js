@@ -15,8 +15,8 @@ var app = angular.module('releaseBadgerApp', ['ngRoute', 'ngResource', 'ui.boots
 app.config(function($routeProvider)
 {
     $routeProvider
-    
-        .when('./', {
+
+        .when('/', {
             templateUrl: 'main.html',
             controller: 'mainController'
         })
@@ -68,7 +68,7 @@ app.factory('stepService', function($resource) {
 });
 
 // setup controllers
-app.controller('mainController', function($scope, stepService){
+app.controller('mainController', function(stepService, $scope, $rootScope){
     $scope.release_number = '2.1.2';
     $scope.isopen = false;
 

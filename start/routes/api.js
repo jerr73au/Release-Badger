@@ -31,7 +31,19 @@ router.route('/steps')
 
   // return all steps
   .get(function(req, res) {
-      res.send({message: "TODO get all steps in the database"});
+      //res.send({message: "TODO get all steps in the database"});
+      var steps = [
+          { number: '1', process: 'Take database backups', done: 'false', time_completed: '' },
+          { number: '2', process: 'Place Sitefinity in Maintenance mode', done: 'false', time_completed: '' },
+          { number: '3', process: 'Pre Solution Depolyment - Remove CRM HTTPS Binding', done: 'false', time_completed: '' },
+          { number: '4', process: 'Production CRM Deployment', done: 'false', time_completed: '' },
+          { number: '5', process: 'Production Intranet Deployment', done: 'false', time_completed: '' },
+          { number: '6', process: 'Production DMZ Deployment', done: 'false', time_completed: '' },
+          { number: '7', process: 'CRM Manual Steps', done: 'false', time_completed: '' },
+          { number: '8', process: 'Post Release Confirmation', done: 'false', time_completed: '' },
+          { number: '9', process: 'Communicate to team members that release is complete', done: 'false', time_completed: '' }
+      ];
+      res.send(200, steps);
   })
 
 // api for an individual step

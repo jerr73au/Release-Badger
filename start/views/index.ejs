@@ -16,7 +16,7 @@
     		<div class="container">
                 <img src="images/badger.png" class="navbar-brand" alt="Cinque Terre" >
     			<a class="navbar-brand" href="#"> Release Badger</a>
-    			<p class="navbar-text"> Follow the IT Software release process </p>
+    			<p class="navbar-text">You don't release the badger, the badger releases you!!!</p>
     			<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/register">Register</a></p>
     			<p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
     			<p class="navbar-right navbar-text" ng-show="authenticated">Signed in as {{current_user}}</p>
@@ -32,7 +32,17 @@
                     <accordion close-others="false">
                         <accordion-group is-open="isopen" ng-class="{'collapsed': !isopen}">
                             <accordion-heading>1. Take database backups</accordion-heading>
+                            <ul>
+                               <li>step 1</li>
+                            </ul>
                             Log onto Jump Host with local admin privileges
+                        </accordion-group>
+                        <accordion-group>
+                            <accordion-heading>
+                                2. Place Sitefinity in Maintenance mode
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                            </accordion-heading>
+                            This is just some content to illustrate fancy headings.
                         </accordion-group>
                         <accordion-group heading="2. Place Sitefinity in Maintenance mode">
                         </accordion-group>
@@ -42,6 +52,12 @@
                           <p>The body of the accordion group grows to fit the contents</p>
                             <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
                             <div ng-repeat="item in items">{{item}}</div>
+                        </accordion-group>
+                        <accordion-group>
+                            <accordion-heading>
+                                I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                            </accordion-heading>
+                            This is just some content to illustrate fancy headings.
                         </accordion-group>
                     </accordion>
                 </div>

@@ -15,6 +15,7 @@ var app = angular.module('releaseBadgerApp', ['ngRoute', 'ngResource', 'ui.boots
 app.config(function($routeProvider)
 {
     $routeProvider
+    
         .when('./', {
             templateUrl: 'main.html',
             controller: 'mainController'

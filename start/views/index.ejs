@@ -23,45 +23,9 @@
     		</div>
     		</nav>
     		<div class="col-md-offset-2 col-md-8">
-
-                <div ng-controller="mainController">
-                    <p>
-                        <h2>Software Release Checklist ( Version {{release_number}} )</h2>
-                    </p>
-
-                    <accordion close-others="false">
-                        <accordion-group is-open="isopen" ng-class="{'collapsed': !isopen}">
-                            <accordion-heading>1. Take database backups</accordion-heading>
-                            <ul>
-                               <li>step 1</li>
-                            </ul>
-                            Log onto Jump Host with local admin privileges
-                        </accordion-group>
-                        <accordion-group>
-                            <accordion-heading>
-                                2. Place Sitefinity in Maintenance mode
-                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                            </accordion-heading>
-                            This is just some content to illustrate fancy headings.
-                        </accordion-group>
-                        <accordion-group heading="2. Place Sitefinity in Maintenance mode">
-                        </accordion-group>
-                        <accordion-group heading="3. Pre Solution Deployment">
-                        </accordion-group>
-                        <accordion-group heading="Dynamic Body Content">
-                          <p>The body of the accordion group grows to fit the contents</p>
-                            <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-                            <div ng-repeat="item in items">{{item}}</div>
-                        </accordion-group>
-                        <accordion-group>
-                            <accordion-heading>
-                                I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                            </accordion-heading>
-                            This is just some content to illustrate fancy headings.
-                        </accordion-group>
-                    </accordion>
+                <div ng-view>
                 </div>
-    	    </div>
+            </div>
 
         </div>
     </body>

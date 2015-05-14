@@ -1,8 +1,7 @@
 
-var app = angular.module('releaseBadgerApp', ['ngRoute', 'ngResource']).run(function($http, $rootScope) {
+var app = angular.module('releaseBadgerApp', ['ngRoute', 'ngResource', 'ui.bootstrap']).run(function($http, $rootScope) {
     $rootScope.authenticated = false;
     $rootScope.current_user = '';
-    $rootScope.release_number = '2.1.2';
 
     $rootScope.signout = function() {
         $http.get('auth/signout');
@@ -10,6 +9,26 @@ var app = angular.module('releaseBadgerApp', ['ngRoute', 'ngResource']).run(func
         $rootScope.current_user = '';
     };
 
+});
+
+// setup routing
+app.config(function($routeProvider)
+{
+    $routeProvider
+        .when('./', {
+            templateUrl: 'main.html',
+            controller: 'mainController'
+        })
+
+        .when('/login', {
+            templateUrl: 'login.html',
+            controller: 'authController'
+        })
+
+        .when('/register', {
+            templateUrl: 'register.html',
+            controller: 'authController'
+        });
 });
 
 // handler for auth responses
@@ -43,35 +62,15 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
 
 });
 
-// setup routing
-app.config(function($routeProvider)
-{
-    $routeProvider
-        .when('./', {
-            templateUrl: 'main.html',
-            controller: 'mainController'
-        })
-
-        .when('/login', {
-            templateUrl: 'login.html',
-            controller: 'authController'
-        })
-
-        .when('/register', {
-            templateUrl: 'register.html',
-            controller: 'authController'
-        });
-});
-
 app.factory('stepService', function($resource) {
-    alert('test');
     return $resource('/api/steps/:id');
 });
 
-
 // setup controllers
 app.controller('mainController', function($scope, stepService){
-    alert('test');
+    $scope.release_number = '2.1.2';
+    $scope.isopen = false;
+
     $scope.steps = stepService.query();
     $scope.newStep = { number: '', process: '', done: '', time_completed: '' };
 

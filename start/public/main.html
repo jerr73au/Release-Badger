@@ -1,16 +1,23 @@
 <div>
     <p>
-        <h2>Software Release Checklist ( Version {{release_number}} )</h2>
+        <h3>Software Release Checklist ( Version {{release_number}} )</h3>
     </p>
 
     <div id="step-stream">
         <accordion close-others="false">
     		<div class="steps" ng-repeat="step in steps | orderBy:'number':false">
-                <accordion-group is-open="isopen" ng-class="{'collapsed': !isopen}">
+                <accordion-group is-open="step.done" ng-class="{'collapsed': !done}">
                     <accordion-heading>
     			        {{step.number}}. {{step.process}}
-                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': step.done, 'glyphicon-chevron-right': !step.done}"></i>
                     </accordion-heading>
+    		            <div ng-repeat="sub_step in step.sub_steps | orderBy:'number':false">
+    			               {{sub_step.number}}. {{sub_step.process}}
+                    </div>
+                    <!-- <button type="button" ng-click="setComplete(step)" class="btn btn-primary pull-right" ng-model="step.done" btn-checkbox btn-checkbox-true="step.done" btn-checkbox-false="!step.done"> -->
+                    <button type="button" ng-click="setComplete(step)" class="btn btn-primary pull-right">
+                          Completed
+                    </button>
                 </accordion-group>
     		</div>
         </accordion>

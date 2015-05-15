@@ -87,4 +87,13 @@ app.controller('mainController', function(stepService, $scope, $rootScope){
         $scope.newStep = { number: '', process: '', done: '', time_completed: '' };
     };
 
+    $scope.setComplete = function(step) {
+        $scope.step= step;
+        $scope.step.done = true;
+        stepService.save($scope.step, function() {
+            $scope.steps = stepService.query();
+            $scope.newStep = { number: '', process: '', done: '', time_completed: '' };
+        });
+    };
+
 });

@@ -14,8 +14,7 @@
     		            <div ng-repeat="sub_step in step.sub_steps | orderBy:'number':false">
     			               {{sub_step.number}}. {{sub_step.process}}
                     </div>
-                    <!-- <button type="button" ng-click="setComplete(step)" class="btn btn-primary pull-right" ng-model="step.done" btn-checkbox btn-checkbox-true="step.done" btn-checkbox-false="!step.done"> -->
-                    <button type="button" ng-click="setComplete(step)" class="btn btn-primary pull-right">
+                    <button type="button" ng-click="setComplete(step)" class="btn btn-primary pull-right" ng-model="step.done" btn-checkbox btn-checkbox-true="step.done" btn-checkbox-false="!step.done">
                           Completed
                     </button>
                 </accordion-group>

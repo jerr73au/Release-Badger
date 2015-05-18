@@ -81,9 +81,9 @@ app.controller('mainController', function(stepService, $scope, $rootScope){
     $scope.newStep = { number: '', process: '', done: '', time_completed: '' };
 
     // initialise steps collection
-    //stepService.getAll().success(function(data) {
+    // stepService.getAll().success(function(data) {
     //    $scope.steps = data;
-    //});
+    // });
 
     // add a new step
     $scope.addStep = function() {
@@ -93,12 +93,10 @@ app.controller('mainController', function(stepService, $scope, $rootScope){
     };
 
     $scope.setComplete = function(step) {
-        alert(step.number);
-        $scope.step= step;
+        $scope.step = step;
         $scope.step.done = true;
         stepService.update({id: $scope.step.number}, $scope.step, function() {
             $scope.steps = stepService.query();
-            $scope.newStep = { number: '', process: '', done: '', time_completed: '' };
         });
     };
 

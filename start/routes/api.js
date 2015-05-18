@@ -1,6 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var steps = [];
+var steps = [
+    {
+      number: '1', process: 'Take database backups', done: false, time_completed: '',
+      sub_steps: [
+        { number: '1', process: 'Log onto the Terminal Services Jump Host as a user with local administrator privileges' },
+        { number: '2', process: 'Edit the web.config located in D:\inetpub\wwwroot\sitefinity' },
+        { number: '3', process: 'Change the following setting from X to Y' },
+        { number: '4', process: 'Update fiig.config by setting the maintenance datetime to a year in the past. i.e. 2010' }
+        ]
+      },
+    { number: '2', process: 'Place Sitefinity in Maintenance mode', done: false, time_completed: '', sub_steps: [] },
+    { number: '3', process: 'Pre Solution Depolyment - Remove CRM HTTPS Binding', done: false, time_completed: '', sub_steps: [] },
+    { number: '4', process: 'Production CRM Deployment', done: false, time_completed: '', sub_steps: [] },
+    { number: '5', process: 'Production Intranet Deployment', done: false, time_completed: '' , sub_steps: [] },
+    { number: '6', process: 'Production DMZ Deployment', done: false, time_completed: '', sub_steps: [] },
+    { number: '7', process: 'CRM Manual Steps', done: false, time_completed: '', sub_steps: [] },
+    { number: '8', process: 'Post Release Confirmation', done: false, time_completed: '', sub_steps: [] },
+    { number: '9', process: 'Communicate to team members that release is complete', done: false, time_completed: '', sub_steps: [] }
+];
 
 // used for routes that must be authenticated
 function isAuthenticated (req, res, next) {
@@ -34,25 +52,8 @@ router.route('/steps')
   // return all steps
   .get(function(req, res) {
       //res.send({message: "TODO get all steps in the database"});
-      steps = [
-          {
-            number: '1', process: 'Take database backups', done: 'false', time_completed: '',
-            sub_steps: [
-              { number: '1', process: 'Log onto the Terminal Services Jump Host as a user with local administrator privileges' },
-              { number: '2', process: 'Edit the web.config located in D:\inetpub\wwwroot\sitefinity' },
-              { number: '3', process: 'Change the following setting from X to Y' },
-              { number: '4', process: 'Update fiig.config by setting the maintenance datetime to a year in the past. i.e. 2010' }
-              ]
-            },
-          { number: '2', process: 'Place Sitefinity in Maintenance mode', done: 'false', time_completed: '', sub_steps: [] },
-          { number: '3', process: 'Pre Solution Depolyment - Remove CRM HTTPS Binding', done: 'false', time_completed: '', sub_steps: [] },
-          { number: '4', process: 'Production CRM Deployment', done: 'false', time_completed: '', sub_steps: [] },
-          { number: '5', process: 'Production Intranet Deployment', done: 'false', time_completed: '' , sub_steps: [] },
-          { number: '6', process: 'Production DMZ Deployment', done: 'false', time_completed: '', sub_steps: [] },
-          { number: '7', process: 'CRM Manual Steps', done: 'false', time_completed: '', sub_steps: [] },
-          { number: '8', process: 'Post Release Confirmation', done: 'false', time_completed: '', sub_steps: [] },
-          { number: '9', process: 'Communicate to team members that release is complete', done: 'false', time_completed: '', sub_steps: [] }
-      ];
+      console.log('getting steps');
+      console.log(steps);
       res.send(200, steps);
   })
 
@@ -64,7 +65,7 @@ router.route('/steps/:id')
       var id = req.params.id.replace(':', '')
       console.log('update step ' + id);
       var step = getStep(id);
-      if(!step){
+      if(step){
           step.done = true;
           return res.send(200, step);
       }
@@ -93,9 +94,11 @@ function getStep(id) {
     console.log('searching for step');
     for(var i=0; i<steps.length; i++) {
         if(steps[i].number == id) {
+            console.log('step found ' + id);
             return steps[i];
         }
     }
+    console.log('step not found ' + id);
     return null;
 }
 

@@ -6,17 +6,21 @@
     <div id="step-stream">
         <accordion close-others="false">
     		<div class="steps" ng-repeat="step in steps | orderBy:'number':false">
-                <accordion-group is-open="step.done" ng-class="{'collapsed': !done}">
+                <!-- <accordion-group is-open="step.done" ng-class="{'collapsed': step.done}"> -->
+                <accordion-group is-open="true">
                     <accordion-heading>
-    			        {{step.number}}. {{step.process}}
-                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': step.done, 'glyphicon-chevron-right': !step.done}"></i>
+    			               {{step.number}}. {{step.process}}
+                        <!-- <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': !step.done, 'glyphicon-chevron-right': step.done}"></i> -->
                     </accordion-heading>
     		            <div ng-repeat="sub_step in step.sub_steps | orderBy:'number':false">
     			               {{sub_step.number}}. {{sub_step.process}}
                     </div>
-                    <button type="button" ng-click="setComplete(step)" class="btn btn-primary pull-right" ng-model="step.done" btn-checkbox btn-checkbox-true="step.done" btn-checkbox-false="!step.done">
+                    <button type="button" ng-show="!step.done" ng-click="setComplete(step)" class="btn btn-primary pull-right">
                           Completed
-                    </button>
+                    </button
+                    <div>
+                        <img src="images/greentick.png" ng-show="step.done" height="42" width="42" class="pull-right"/>
+                    </div>
                 </accordion-group>
     		</div>
         </accordion>

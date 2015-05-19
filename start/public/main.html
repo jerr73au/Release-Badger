@@ -15,7 +15,7 @@
     		            <div ng-repeat="sub_step in step.sub_steps | orderBy:'number':false">
     			               {{sub_step.number}}. {{sub_step.process}}
                     </div>
-                    <button type="button" ng-show="!step.done" ng-click="setComplete(step)" class="btn btn-primary pull-right">
+                    <button type="button" ng-show="!step.done && isAuthenticated" ng-click="setComplete(step)" class="btn btn-primary pull-right">
                           Completed
                     </button
                     <div>

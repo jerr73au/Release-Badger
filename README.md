@@ -3,6 +3,7 @@
 Todo
 * deploy to azure
 * implement socket library to push notifications to other clients
+* use fancy alert to login failures
 
 Demonstratable items
 * build RESTful api using expressjs/nodejs
@@ -10,4 +11,3 @@ Demonstratable items
 * using ngResource for interacting with RESTful webservice
 * add a put action onto the ngResource app.factory for updating a specified object
 * use of ui-bootstrap to demonstrate rich UI design
-* 
